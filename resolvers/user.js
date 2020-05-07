@@ -1,24 +1,24 @@
 const resolvers = {
   Query: {
-    users: (_, __, { models: { users } }) => users,
-    user: (parent, { id }, { models: { users } }) =>
-      users.find((x) => x.id == id),
-    me: (_, __, { models: { users } }) => users[0],
+    users: (_, __, { models }) => models.User.findAll(),
+    user: (parent, { id }, { models }) => models.User.findByPk(id),
   },
   Mutation: {
-    createUser: (_, { id, name }, { models: { users } }) => {
-      const data = { id, name };
-      users.push(data);
-      return data;
-    },
-    removeUser: (_, { id }, { models: { users } }) => {
-      const index = users.findIndex((user) => user.id === id);
-      return index !== -1 ? !!users.splice(index, 1) : false;
-    },
+    createUser: (_, { name }, { models }) => models.User.create({ name }),
+    removeUser: (_, { id }, { models }) =>
+      models.User.destroy({
+        where: {
+          id,
+        },
+      }),
   },
   User: {
-    car: (user, _, { models: { cars } }) =>
-      user.cars.map((id) => cars.find((x) => x.id === id)),
+    car: (parent, _, { models }) =>
+      models.Car.findAll({
+        where: {
+          userId: parent.id,
+        },
+      }),
   },
 };
 module.exports = resolvers;

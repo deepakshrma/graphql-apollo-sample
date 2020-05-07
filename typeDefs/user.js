@@ -4,11 +4,10 @@ const typeDefs = gql`
   extend type Query {
     users: [User]
     user(id: Int!): User
-    me: User
   }
 
   extend type Mutation {
-    createUser(id: ID!, name: String!): User!
+    createUser(name: String!): User!
     removeUser(id: Int!): Boolean
   }
 

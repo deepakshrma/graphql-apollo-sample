@@ -7,7 +7,12 @@ const typeDefs = gql`
   }
 
   extend type Mutation {
-    createCar(id: ID!, model: String!): Car!
+    createCar(
+      model: String!
+      make: String!
+      colour: String!
+      ownedBy: Int!
+    ): Car!
     removeCar(id: Int!): Boolean
   }
 
@@ -15,6 +20,7 @@ const typeDefs = gql`
     id: Int!
     model: String!
     make: String!
+    colour: String!
     owner: User!
   }
 `;

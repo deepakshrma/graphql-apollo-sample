@@ -1,22 +1,26 @@
 const resolvers = {
   Query: {
-    cars: (_, __, { models: { cars } }) => cars,
-    car: (parent, { id }, { models: { cars } }) => cars.find((x) => x.id == id),
+    cars: (_, __, { models }) => models.Car.findAll(),
+    car: (parent, { id }, { models }) => models.Car.findByPk(id),
   },
   Mutation: {
-    createCar: (parent, { id, name }, { models: { cars } }) => {
-      const data = { id, name };
-      cars.push(data);
-      return data;
+    createCar: (
+      parent,
+      { model, colour, make, ownedBy: userId },
+      { models }
+    ) => {
+      return models.Car.create({ model, colour, make, userId });
     },
-    removeCar: (parent, { id }, { models: { cars } }) => {
-      const index = cars.findIndex((data) => data.id === id);
-      return index !== -1 ? !!cars.splice(index, 1) : false;
+    removeCar: (parent, { id }, { models }) => {
+      return models.Car.destroy({
+        where: {
+          id,
+        },
+      });
     },
   },
   Car: {
-    owner: (parent, _, { models: { users } }) =>
-      users.find((x) => x.id === parent.ownedBy),
+    owner: (parent, _, { models }) => models.User.findByPk(parent.userId),
   },
 };
 module.exports = resolvers;

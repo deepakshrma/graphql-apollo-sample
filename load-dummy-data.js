@@ -20,10 +20,6 @@ const createData = async () => {
     },
     { include: [models.Car] }
   );
-  // {
-  //   name: "Deepak2",
-  //   cars: [{ make: "Nissan", model: "GT-R", colour: "green" }],
-  // }
 };
 sequelize.sync({ force: true }).then(async () => {
   try {
