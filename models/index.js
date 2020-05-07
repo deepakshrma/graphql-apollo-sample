@@ -8,7 +8,6 @@ const models = {
 };
 Object.keys(models).forEach((k) => {
   if ("associate" in models[k]) {
-    console.log(k, models[k]);
     models[k].associate(models);
   }
 });
