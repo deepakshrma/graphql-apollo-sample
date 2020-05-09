@@ -4,12 +4,9 @@ const resolvers = {
     car: (parent, { id }, { models }) => models.Car.findByPk(id),
   },
   Mutation: {
-    createCar: (
-      parent,
-      { model, colour, make, ownedBy: userId },
-      { models }
-    ) => {
-      return models.Car.create({ model, colour, make, userId });
+    createCar: (parent, { model, colour, make }, { models, me }) => {
+      if (!me) throw Error("Not Authenticated");
+      return models.Car.create({ model, colour, make, userId: me.id });
     },
     removeCar: (parent, { id }, { models }) => {
       return models.Car.destroy({

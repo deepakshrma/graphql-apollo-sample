@@ -1,4 +1,6 @@
-const car = (sequelize, DataTypes) => {
+const { DataTypes } = require("sequelize");
+
+const car = (sequelize) => {
   const Car = sequelize.define("car", {
     make: {
       type: DataTypes.STRING,

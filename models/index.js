@@ -1,7 +1,7 @@
 const { sequelize } = require("./database");
 
-const UserModel = sequelize.import("./user");
-const CarModel = sequelize.import("./car");
+const UserModel = require("./user")(sequelize);
+const CarModel = require("./car")(sequelize);
 const models = {
   User: UserModel,
   Car: CarModel,
