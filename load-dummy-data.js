@@ -1,6 +1,6 @@
-const { sequelize } = require("./models/database");
+const { sequelize } = require("./src/models/database");
 
-const models = require("./models");
+const models = require("./src/models");
 
 const createData = async () => {
   await models.User.create(

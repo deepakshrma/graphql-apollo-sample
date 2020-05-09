@@ -19,6 +19,9 @@ const user = (sequelize) => {
         notEmpty: true,
       },
     },
+    photo: {
+      type: DataTypes.STRING,
+    },
   });
   User.prototype.hashPassword = async function (password) {
     return await bcrypt.hash(this.password, 10);
