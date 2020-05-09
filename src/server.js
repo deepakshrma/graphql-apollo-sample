@@ -7,6 +7,7 @@ const app = express();
 const typeDefs = require("./typeDefs");
 const resolvers = require("./resolvers");
 const models = require("./models");
+const router = require("./router");
 
 const PORT = process.env.PORT || 4000;
 
@@ -29,12 +30,12 @@ const server = new ApolloServer({
     me: getLoginUser(req),
   }),
 });
-app.get("/", (_, res) => {
-  res.setHeader("content-type", "text/html");
-  res.send(
-    `Open <a target="_blank" href="http://localhost:${PORT}/graphql">http://localhost:${PORT}/graphql</a>`
-  );
-});
+app.set("view engine", "pug");
+app.set("views", `${__dirname}/../views`);
+
+app.get("/", router.index);
+app.get("/user/:id", router.userInfo);
+
 server.applyMiddleware({ app });
 
 app.listen(PORT, () =>

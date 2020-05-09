@@ -64,7 +64,7 @@ const resolvers = {
           userId: parent.id,
         },
       }),
-    photo: (parent, { options }, { models }) => {
+    photo: (parent, { options = [] }) => {
       const [width, q_auto, f_auto, face] = options;
       const cloudinaryOptions = {
         ...(q_auto === "true" && { quality: "auto" }),
@@ -73,8 +73,7 @@ const resolvers = {
         width,
         secure: true,
       };
-      let url = cloudinary.url(parent.photo, cloudinaryOptions);
-      return url;
+      return cloudinary.url(parent.photo, cloudinaryOptions);
     },
   },
   CloudinartOptions: new GraphQLScalarType({
@@ -85,7 +84,7 @@ const resolvers = {
     serialize(v) {
       return v;
     },
-    parseLiteral({ value }) {
+    parseLiteral({ value = "" }) {
       return value.split(",");
     },
   }),

@@ -1,0 +1,16 @@
+h3= user.name
+if user.car.length === 0
+  p This user has no cars
+if !user.photo
+  p
+    img(src="https://res.cloudinary.com/dtx9hxijt/image/upload/c_scale,r_3,w_100/avatar.png" width= "200px" height= "200px")
+if user.photo
+  p
+    img(src= user.photo width= "200px" height= "200px")
+
+if user.car
+  ul
+    for car in user.car
+      li #{car.make} #{car.model} (#{car.colour})
+p
+  a(href= "/") Go Back
