@@ -23,6 +23,9 @@
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.7"
   },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -32,17 +35,11 @@
     "*.(js|html|css|ts|tsx|jsx|md)": [
       "prettier --write",
       "git add"
-    ],
-    ".(js|ts|tsx|jsx)": [
-      "npm run lint:fix",
-      "npm run lint"
     ]
   },
-  "devDependencies": {
-    "eslint": "^7.0.0",
+  "devDependencie": {
     "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
-    "nodemon": "^2.0.3",
     "prettier": "^2.0.5"
   }
 }
