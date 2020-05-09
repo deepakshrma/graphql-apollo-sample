@@ -8,6 +8,8 @@ const typeDefs = require("./typeDefs");
 const resolvers = require("./resolvers");
 const models = require("./models");
 
+const PORT = process.env.PORT || 4000;
+
 const getLoginUser = (req) => {
   const token = req.headers["x-auth-token"];
   if (token) {
@@ -27,7 +29,14 @@ const server = new ApolloServer({
     me: getLoginUser(req),
   }),
 });
-
+app.get("/", (_, res) => {
+  res.setHeader("content-type", "text/html");
+  res.send(
+    `Open <a target="_blank" href="http://localhost:${PORT}/graphql">http://localhost:${PORT}/graphql</a>`
+  );
+});
 server.applyMiddleware({ app });
 
-app.listen(3000, () => console.info("Apollo server is running on : 3000"));
+app.listen(PORT, () =>
+  console.info(`Apollo server is running on : http://localhost:${PORT}/graphql`)
+);
